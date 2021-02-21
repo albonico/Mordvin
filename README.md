@@ -1,4 +1,4 @@
-# cyrillic
+# Mordvin
 
 CLI aimed at transliterating text in Mordvinic languages Erzya and Moksha from cyrillic alphabet to latin alphabet.
 

@@ -8,7 +8,9 @@ Basic transformation rules for the two languages can be checked in .yml files wi
 
 Rules involving sequences of letters are applied first. This implies that the transformation rule for the individual letter (e.g. "т" -> "t") only applies in case the letter isn't combined with any of the letters specified in the multiple transformations (e.g. "та","тя","те,"тэ,"ты,"ти,"ту,"тю,"то,"тё"): usually the only remaining case is the final position in a word.
 
-Some additional rules are applied in Erzya, which depend on the position of the letter inside a word (first/last letter or first/last syllable). Here as well rules for groups are applied first.
+When one of the accented consonants (e.g. "ť") is preceeded by the same consonant without an accent in the final latin text, this one takes an accent as well ("tť"->"ťť").
+
+Some additional rules are applied in Moksha, which depend on the position of the letter inside a word (first/last letter or first/last syllable). Here as well rules for groups are applied first.
 
 - The group "те" always maps to "ťǝ" unless in the first syllable where it maps to "ťe";
 

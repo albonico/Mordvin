@@ -6,7 +6,7 @@ import yaml
 
 import os
 import sys
-from transliterate import transliterate
+from transliterate import transliterate,wordwise_transliterate,latin_replacements
 
 #Don't execute if importing file elsewhere
 if __name__ == '__main__':
@@ -41,7 +41,7 @@ if __name__ == '__main__':
 	with open(f"Dictionaries/{language}.yml") as file:
 	    rules = yaml.full_load(file)
 
-	single_list,double=rules["single"],rules["double"]
+	single_list,double,double_consonants=rules.get("single",{}),rules.get("double",{}),rules.get("double_latin",{})
 
 	single={ a : b for a,b in zip(single_list[0],single_list[1])}
 
@@ -49,15 +49,22 @@ if __name__ == '__main__':
 	with open(filepath,"rb") as text_file:
 		to_translit=text_file.read().decode("utf-8")
 
+	# Apply rules on first/last syl/letter
+	if rules["extra"]==True:
+		to_translit=wordwise_transliterate(to_translit,rules.get("first_syl",{}),rules.get("last_syl",{}),rules.get("first_lett",{}),rules.get("last_lett",{}),rules.get("consonants"))
 
+	# Apply dictionary
+	to_translit=transliterate(to_translit,single,double)
 
-	out_text=transliterate(to_translit,single,double)
+	# Apply replacement rules on transliterated text (double consonants get accents)
+	to_translit=latin_replacements(to_translit,double_consonants)
 
+	# Output
 	if out_filepath is not None:
 		with open(out_filepath,"w") as text_file:
-			text_file.write(out_text)
+			text_file.write(to_translit)
 	else:
-		print(out_text)
+		print(to_translit)
 
 
 

@@ -24,18 +24,21 @@ def wordwise_transliterate(text,first_syl,last_syl,first_let,last_let,consonants
 	last_syl_double=filterTheDict(last_syl,lambda elem: len(elem[0]) >= 2)
 
 	for (key,val) in first_let.items():
+		text=re.sub(r"(\b)"+key.capitalize(),r"\1"+val.capitalize(),text)
 		text=re.sub(r"(\b)"+key,r"\1"+val,text)
 
 	for (key,val) in last_let.items():
 		text=re.sub(key+r"(\b)",val+r"\1",text)
 
 	for (key,val) in first_syl_double.items():
+		text=re.sub(r"(\b["+consonants.upper()+"]*)"+key,r"\1"+val,text)
 		text=re.sub(r"(\b["+consonants+"]*)"+key,r"\1"+val,text)
 
 	for (key,val) in last_syl_double.items():
 		text=re.sub(key+r"["+consonants+"]*\b",val+r"["+consonants+"]*\b",text)
 
 	for (key,val) in first_syl_mono.items():
+		text=re.sub(r"(\b["+consonants.upper()+"]*)"+key,r"\1"+val,text)
 		text=re.sub(r"(\b["+consonants+"]*)"+key,r"\1"+val,text)
 
 	for (key,val) in last_syl_mono.items():
@@ -45,12 +48,14 @@ def wordwise_transliterate(text,first_syl,last_syl,first_let,last_let,consonants
 
 
 def latin_replacements(text,double_consonants):
+	cons_with_accent="".join(double_consonants.values())
 
 	for x,y in double_consonants.items():
-		text=text.replace(x.capitalize(),y.capitalize())
-		text=text.replace(x,y)
+		text=re.sub(x.capitalize()+r"(["+cons_with_accent+"])",y.capitalize()+r"\1",text)
+		text=re.sub(x+r"(["+cons_with_accent+"])",y+r"\1",text)
 
 	return text
+
 
 def filterTheDict(dictObj, callback):
     newDict = dict()

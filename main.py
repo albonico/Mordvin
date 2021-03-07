@@ -41,7 +41,8 @@ if __name__ == '__main__':
 	with open(f"Dictionaries/{language}.yml") as file:
 	    rules = yaml.full_load(file)
 
-	single_list,double,double_consonants=rules.get("single",{}),rules.get("double",{}),rules.get("double_latin",{})
+	single_list,double,double_consonants=rules["single"],rules.get("double",{}),rules.get("double_latin",{})
+
 
 	single={ a : b for a,b in zip(single_list[0],single_list[1])}
 

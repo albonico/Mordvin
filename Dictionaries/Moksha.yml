@@ -121,12 +121,21 @@ extra: True
 consonants:
   "ийпбмфвшжчгктдсзнрлц"
 
+vowels:
+  - "аэыуо"
+  - "яеиюё"
+
 first_syl:
   "те" : "ťe"
   "е" : "e"
   "о" : "o"
 
 first_lett:
+  "я" : "ja" 
+  "е" : "je"
+  "и" : "ji"
+  "ю" : "ju"
+  "ё" : "jo"
   "э" : "ä"
 
 last_lett:

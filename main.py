@@ -42,7 +42,7 @@ if __name__ == '__main__':
 	    rules = yaml.full_load(file)
 
 	single_list,double,double_consonants=rules["single"],rules.get("double",{}),rules.get("double_latin",{})
-
+	vowels=rules.get("vowels",{})
 
 	single={ a : b for a,b in zip(single_list[0],single_list[1])}
 
@@ -52,7 +52,7 @@ if __name__ == '__main__':
 
 	# Apply rules on first/last syl/letter
 	if rules["extra"]==True:
-		to_translit=wordwise_transliterate(to_translit,rules.get("first_syl",{}),rules.get("last_syl",{}),rules.get("first_lett",{}),rules.get("last_lett",{}),rules.get("consonants"))
+		to_translit=wordwise_transliterate(to_translit,rules.get("first_syl",{}),rules.get("last_syl",{}),rules.get("first_lett",{}),rules.get("last_lett",{}),rules.get("consonants"),vowels[0],vowels[1])
 
 	# Apply dictionary
 	to_translit=transliterate(to_translit,single,double)

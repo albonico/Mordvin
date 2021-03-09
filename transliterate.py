@@ -12,16 +12,19 @@ def transliterate(text,single_dic,double):
 		
 	return text
 
-def wordwise_transliterate(text,first_syl,last_syl,first_let,last_let,consonants):
+def wordwise_transliterate(text,first_syl,last_syl,first_let,last_let,consonants,vowels1,vowels2):
 
-	if consonants is None:
-		raise ValueError('No consonants defined')
+	if consonants is None and (first_syl or last_syl):
+		raise ValueError('No consonants defined for syllable rules')
 
 	first_syl_mono=filterTheDict(first_syl,lambda elem: len(elem[0]) == 1)
 	first_syl_double=filterTheDict(first_syl,lambda elem: len(elem[0]) >= 2)
 
 	last_syl_mono=filterTheDict(last_syl,lambda elem: len(elem[0]) == 1)
 	last_syl_double=filterTheDict(last_syl,lambda elem: len(elem[0]) >= 2)
+
+	text=re.sub(r"(["+vowels1.upper()+r"])(["+vowels2+r"])",r"\1"+"j"+r"\2",text)
+	text=re.sub(r"(["+vowels1+r"])(["+vowels2+r"])",r"\1"+"j"+r"\2",text)
 
 	for (key,val) in first_let.items():
 		text=re.sub(r"(\b)"+key.capitalize(),r"\1"+val.capitalize(),text)

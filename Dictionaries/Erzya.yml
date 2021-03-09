@@ -105,6 +105,17 @@ double_latin:
   "l" : "ĺ"
   "c" : "ć"
 
-extra: False
+extra: True
+
+vowels:
+  - "аэыуо"
+  - "яеиюё"
+
+first_lett:
+  "я" : "ja" 
+  "е" : "je"
+  "и" : "ji"
+  "ю" : "ju"
+  "ё" : "jo"
 
 ...
